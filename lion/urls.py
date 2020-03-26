@@ -15,7 +15,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
+from theapp.views import MainView, QnaListView, QnaCheckView, QnaCreateView, AboutView, PastView, PeopleView, ScheduleView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-]
+    path('', MainView.as_view(), name='main'),
+    path('about/', AboutView.as_view(), name='about'),
+    path('qna/', QnaListView.as_view(), name='qna'),
+    path('2019/', PastView.as_view(), name='past'),
+    path('2020/', ScheduleView.as_view(), name='schedule'),
+    path('people/', PeopleView.as_view(), name='people'),
+    path('ask/', QnaCreateView.as_view(), name='ask'),
+    path('myqna/', QnaCheckView.as_view(), name='myqna')
+
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) 
